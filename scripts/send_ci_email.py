@@ -7,7 +7,7 @@ def required_env(name: str) -> str:
     value = os.getenv(name)
     if not value:
         raise RuntimeError(f"Required environment variable is missing: {name}")
-    return value
+    return value 
 
 
 def main() -> None:
