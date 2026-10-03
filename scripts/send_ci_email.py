@@ -6,8 +6,12 @@ from email.message import EmailMessage
 def required_env(name: str) -> str:
     value = os.getenv(name)
     if not value:
-        raise RuntimeError(f"Required environment variable is missing: {name}")
+        raise RuntimeError(
+            f"Required environment variable is missing: {name}"
+        )
     return value
+
+
 def main() -> None:
     smtp_server = required_env("SMTP_SERVER")
     smtp_port = int(required_env("SMTP_PORT"))
@@ -31,11 +35,13 @@ def main() -> None:
     )
 
     if status == "success":
-        subject = f"✅ CI Passed — {repository}"
+        subject = f"CI Passed — {repository}"
         headline = "The GitHub Actions CI pipeline completed successfully."
     else:
-        subject = f"❌ CI Failed — {repository}"
-        headline = f"The GitHub Actions CI pipeline finished with status: {status} :(."
+        subject = f"CI Failed — {repository}"
+        headline = (
+            f"The GitHub Actions CI pipeline finished with status: {status}."
+        )
 
     body = f"""\
 {headline}
